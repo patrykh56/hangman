@@ -1,0 +1,32 @@
+* {
+    box-sizing: border-box;
+    font-family: 'Noto Sans JP', sans-serif;
+}
+
+.field-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    margin: 3em;
+    padding: 3em;
+    border-radius: 5px;
+    background-color: rgb(202, 211, 203);
+}
+
+.start {
+    display: flex;
+    margin: 50px auto;
+    background-color: green;
+    padding: 20px;
+    border-style: solid;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.start:hover {
+    background-color: rgb(0, 100, 0);
+    transition: 0.3s;
+    color: white;
+}
