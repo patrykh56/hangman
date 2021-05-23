@@ -8,17 +8,21 @@
     <title>Hangman game</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet">
+    <link rel="icon" href="images/gallows.svg" type="image/icon type">
+    <!-- <div>Icons made by Freepikfrom www.flaticon.com -->
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <div class="field-container game">
+    <div class="game">
         <h1 class="game-title">Hangman game!</h1>
         <p class="game-description">You have 5 chances to guess the keyword, otherwise your head will hang. Are you
             ready to save yourself?</p>
         <button class="start" type="button">Start!</button>
         <div class="keyword"></div>
-        <div class="attempts"></div>
+        <div class="attempts">
+            <p class="counter">5</p>
+        </div>
         <div class="letter-board"></div>
         <div class="board"></div>
     </div>

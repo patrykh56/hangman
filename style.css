@@ -3,7 +3,7 @@
     font-family: 'Noto Sans JP', sans-serif;
 }
 
-.field-container {
+.game {
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -16,7 +16,7 @@
 
 .start {
     display: flex;
-    margin: 50px auto;
+    margin: 30px auto;
     background-color: green;
     padding: 20px;
     border: green solid 1px;
@@ -37,12 +37,28 @@
     border:rgb(0, 100, 0) solid 1px;
 }
 
+.attempts {
+    display: none;
+    justify-content: center;
+    margin: 0 auto;
+    width: 50px;
+    height: 50px;
+    border: green solid 3px;
+    border-radius: 50%;
+    line-height: 100%;
+    background-color: white;
+}
+
+.attempts > p {
+    font-size: 15px;
+}
+
 .letter-board {
-    display: flex;
+    display: none;
     flex-wrap: wrap;
     justify-content: center;
     max-width: 650px;
-    margin: 0 auto;
+    margin: 30px auto;
 }
 
 .letter-board > .letter-tile {
@@ -64,4 +80,47 @@
 .letter-board > .letter-tile:active {
     background-color: black;
     border:  rgb(208, 208, 208) solid 1px;
+}
+
+.keyword {
+    display: none;
+    max-width: 650px;
+    justify-content: center;
+    background-color: grey;
+    margin: 30px auto;
+    padding: 15px;
+}
+
+.keyword > .letter-tile {
+    /* display: none; */
+    text-transform: capitalize;
+    font-size: 30px;
+    text-align: center;
+    width: 50px;
+    height: 50px;
+    padding: 2px auto;
+    font-weight: bold;
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: green;
+    margin: auto 5px;
+}
+
+@media (max-width: 800px) {
+    .keyword > .letter-tile {
+        width: 40px;
+        height: 40px;
+        font-size: 25px;
+    }
+
+    @media (max-width: 690px) {
+        .keyword {
+            padding: 15px 5px;
+        }
+        .keyword > .letter-tile {
+            height: 30px;
+            width: 30px;
+            font-size: 20px;
+        }
+    }
 }
