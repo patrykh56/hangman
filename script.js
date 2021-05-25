@@ -1,12 +1,9 @@
 const game = {
     currentKeyword: [], //tablica znakow obecnego keywordu
-    currentLetter: null, //obecna literka
-    attempts: 5,
     elemSentence: document.querySelector(".keyword"), //element z hasłem do zgadnięcia
     elemAttempts: document.querySelector(".attempts"), //element z liczba prob
     elemLetters: document.querySelector(".letter-board"), //lista z literkami do klikania
     keywords: ["money", "rectangle", "flower", "cucumber", "horse", "carpet"],
-
 
     generateLetters() { //generujemy tablicę z literkami, które zostaną uzyte do utworzenia przycisków
         const alphabet = 'abcdefghijklmnopqrstuvwxyz'.split("");
@@ -24,7 +21,6 @@ const game = {
         this.elemLetters.addEventListener("click", e => {
             if (e.target.classList.contains("letter-tile")) {
                 const letter = e.target.dataset.letter;
-                console.log(letter);
                 e.target.disabled = true;
             }
         })
@@ -38,7 +34,7 @@ const game = {
                 location.reload(true);
             }
             btnStart.textContent = "Try again";
-            this.elemAttempts.style.display = "flex";
+            this.elemAttempts.style.display = "block";
             this.elemLetters.style.display = "flex";
             this.elemSentence.style.display = "flex";
             click++;
@@ -58,33 +54,33 @@ const game = {
             tile.classList.add("letter-tile");
             tile.classList.add("keyword-tile");
             tile.dataset.letter = letter;
-            tile.innerText = letter; //bylo letter
+            tile.innerText = ' ';
             this.elemSentence.appendChild(tile);
-            this.currentLetter = tile;
         })
     },
 
     verifyYourGuess() { //sprawdza czy kafelek z puli do strzelania, który kliknęliśmy jest w haśle - jeśli tak, to dodaje do hasła i pokazuje wszystkie jego powtórzenia, jeśli nie to nalicza próby nietrafione
-        this.elemLetters.addEventListener("click", e => {
-            if (this.currentKeyword.includes(e.target.dataset.letter) === true) {
-                let index = this.currentKeyword.indexOf(e.target.dataset.letter);
-                const t = document.querySelectorAll(".keyword-tile");
-                t.forEach(letter => {
-                    // this.currentLetter.innerText = this.currentLetter.dataset.letter;
-                })
-                console.log(index);
-                this.currentKeyword.splice(index, 1);
-                if (this.currentKeyword.length === 0) {
-                    this.gameComplete();
+        let counterOfGoodLetters = 0;
+        let counterOfBadLetters = 5;
+        this.elemLetters.addEventListener("click", event => {
+            let missed = true;
+            const tableOfTiles = document.querySelectorAll(".keyword-tile");
+            tableOfTiles.forEach(tile => {
+                if (event.target.dataset.letter === tile.dataset.letter) {
+                    missed = false;
+                    tile.innerText = tile.dataset.letter;
+                    counterOfGoodLetters++;
+                    if (counterOfGoodLetters === tableOfTiles.length) {
+                        this.gameComplete();
+                    }
                 }
-            } else {
-                const attemptsCounter = document.querySelector(".counter");
-                this.attempts--;
-                console.log('gowno');
-                attemptsCounter.innerText = this.attempts;
-                if (this.attempts === 0) {
+            });
+            if (missed) {
+                counterOfBadLetters--;
+                this.elemAttempts.innerText = counterOfBadLetters;
+                if (counterOfBadLetters === 0) {
+                    this.disableAllLetters();
                     this.gameOver();
-                    this.startGame();
                 }
             }
         })
@@ -116,7 +112,6 @@ const game = {
     },
 
     startGame() {
-        this.attempts = 5;
         this.showGame();
         this.showAttemps();
     },
