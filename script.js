@@ -77,7 +77,7 @@ const game = {
             });
             if (missed) {
                 counterOfBadLetters--;
-                this.elemAttempts.innerText = counterOfBadLetters;
+                this.elemAttempts.firstElementChild.innerText = counterOfBadLetters;
                 if (counterOfBadLetters === 0) {
                     this.disableAllLetters();
                     this.gameOver();
@@ -109,11 +109,6 @@ const game = {
     initBoard() {
         this.generateLetters();
         this.disableYourTile();
-    },
-
-    startGame() {
-        this.showGame();
-        this.showAttemps();
     },
 };
 
