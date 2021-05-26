@@ -1,5 +1,4 @@
 const game = {
-    currentKeyword: [], //tablica znakow obecnego keywordu
     elemSentence: document.querySelector(".keyword"), //element z hasłem do zgadnięcia
     elemAttempts: document.querySelector(".attempts"), //element z liczba prob
     elemLetters: document.querySelector(".letter-board"), //lista z literkami do klikania
@@ -31,7 +30,7 @@ const game = {
         const btnStart = document.querySelector(".start");
         btnStart.addEventListener("click", e => {
             if (click !== 0) {
-                location.reload(true);
+                location.reload();
             }
             btnStart.textContent = "Try again";
             this.elemAttempts.style.display = "block";
@@ -48,7 +47,6 @@ const game = {
 
     generateKeywordBars() { //tworzy pola keywordu
         const tabOfLetters = this.randomKeyword().split('');
-        this.currentKeyword = tabOfLetters;
         tabOfLetters.forEach(letter => {
             const tile = document.createElement("div");
             tile.classList.add("letter-tile");
