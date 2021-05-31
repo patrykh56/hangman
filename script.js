@@ -60,9 +60,9 @@ const game = {
     verifyYourGuess() { //sprawdza czy kafelek z puli do strzelania, który kliknęliśmy jest w haśle - jeśli tak, to dodaje do hasła i pokazuje wszystkie jego powtórzenia, jeśli nie to nalicza próby nietrafione
         let counterOfGoodLetters = 0;
         let counterOfBadLetters = 5;
+        const tableOfTiles = document.querySelectorAll(".keyword-tile");
         this.elemLetters.addEventListener("click", event => {
             let missed = true;
-            const tableOfTiles = document.querySelectorAll(".keyword-tile");
             tableOfTiles.forEach(tile => {
                 if (event.target.dataset.letter === tile.dataset.letter) {
                     missed = false;
@@ -75,11 +75,13 @@ const game = {
             });
             if (missed) {
                 counterOfBadLetters--;
-                this.elemAttempts.firstElementChild.innerText = counterOfBadLetters;
-                if (counterOfBadLetters === 0) {
-                    this.disableAllLetters();
-                    this.gameOver();
-                }
+                this.elemAttempts.firstElementChild.textContent = counterOfBadLetters;
+                setTimeout(() => {
+                    if (counterOfBadLetters === 0) {
+                        this.disableAllLetters();
+                        this.gameOver();
+                    }
+                }, 40)
             }
         })
     },
