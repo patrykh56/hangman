@@ -1,5 +1,4 @@
 const game = {
-    currentKeyword: [], //tablica znakow obecnego keywordu
     elemSentence: document.querySelector(".keyword"), //element z hasłem do zgadnięcia
     elemAttempts: document.querySelector(".attempts"), //element z liczba prob
     elemLetters: document.querySelector(".letter-board"), //lista z literkami do klikania
@@ -31,7 +30,7 @@ const game = {
         const btnStart = document.querySelector(".start");
         btnStart.addEventListener("click", e => {
             if (click !== 0) {
-                location.reload(true);
+                location.reload();
             }
             btnStart.textContent = "Try again";
             this.elemAttempts.style.display = "block";
@@ -48,7 +47,6 @@ const game = {
 
     generateKeywordBars() { //tworzy pola keywordu
         const tabOfLetters = this.randomKeyword().split('');
-        this.currentKeyword = tabOfLetters;
         tabOfLetters.forEach(letter => {
             const tile = document.createElement("div");
             tile.classList.add("letter-tile");
@@ -62,9 +60,9 @@ const game = {
     verifyYourGuess() { //sprawdza czy kafelek z puli do strzelania, który kliknęliśmy jest w haśle - jeśli tak, to dodaje do hasła i pokazuje wszystkie jego powtórzenia, jeśli nie to nalicza próby nietrafione
         let counterOfGoodLetters = 0;
         let counterOfBadLetters = 5;
+        const tableOfTiles = document.querySelectorAll(".keyword-tile");
         this.elemLetters.addEventListener("click", event => {
             let missed = true;
-            const tableOfTiles = document.querySelectorAll(".keyword-tile");
             tableOfTiles.forEach(tile => {
                 if (event.target.dataset.letter === tile.dataset.letter) {
                     missed = false;
@@ -77,11 +75,13 @@ const game = {
             });
             if (missed) {
                 counterOfBadLetters--;
-                this.elemAttempts.firstElementChild.innerText = counterOfBadLetters;
-                if (counterOfBadLetters === 0) {
-                    this.disableAllLetters();
-                    this.gameOver();
-                }
+                this.elemAttempts.firstElementChild.textContent = counterOfBadLetters;
+                setTimeout(() => {
+                    if (counterOfBadLetters === 0) {
+                        this.disableAllLetters();
+                        this.gameOver();
+                    }
+                }, 40)
             }
         })
     },
